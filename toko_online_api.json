@@ -6,12 +6,205 @@
     "description": "Dokumentasi API untuk project Toko Online WebDev",
     "contact": {
       "name": "Riski Rahmat Hia",
-      "email": "riskirahmathia3@gmail.com",
-      "url": "wibugames.com"
+      "email": "riskirahmathia3@gmail.com"
     },
     "license": {
       "name": "APACHE 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "servers": [
+    {
+      "description": "Toko Online WebDev Server",
+      "url": "https://{environment}.tokowebdev.com/api/v1",
+      "variables": {
+        "environment": {
+          "description": "Server environment",
+          "default": "dev",
+          "enum": ["dev", "qa", "prod"]
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Post data user",
+        "description": "Post user data, and save the data to database",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/userRegister"
+              },
+              "example": {
+                "username": "riski",
+                "email": "riski@gmail.com",
+                "password": "riski123"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User succes register",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/returnSchema"
+                },
+                "example": {
+                  "data": {
+                    "username": "riski",
+                    "email": "riski@gmail.com",
+                    "password": "riski123"
+                  },
+                  "error": false,
+                  "message": "user successfully registered"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User failed register",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/returnSchema"
+                },
+                "example": {
+                  "data": {
+                    "username": "riski",
+                    "email": "riski@gmail.com",
+                    "password": "xxx"
+                  },
+                  "error": true,
+                  "message": "username or password not valid"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "User failed register",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/returnSchema"
+                },
+                "example": {
+                  "data": {
+                    "username": "riski",
+                    "email": "riski@gmail.com",
+                    "password": "xxx"
+                  },
+                  "error": true,
+                  "message": "username already exist"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User login",
+        "description": "User login to app",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/userRegister"
+              },
+              "example": {
+                "username": "riski",
+                "email": "riski@gmail.com",
+                "password": "riski123"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User succes register",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/returnSchema"
+                },
+                "example": {
+                  "data": {
+                    "username": "riski",
+                    "email": "riski@gmail.com",
+                    "password": "riski123"
+                  },
+                  "error": false,
+                  "message": "user successfully registered"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User failed to login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/returnSchema"
+                },
+                "example": {
+                  "data": {
+                    "username": "riski",
+                    "email": "riski@gmail.com",
+                    "password": "xxx"
+                  },
+                  "error": true,
+                  "message": "wrong username or password"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {},
+    "schemas": {
+      "userRegister": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "minLength": 1
+          },
+          "email": {
+            "type": "string",
+            "minLength": 1
+          },
+          "password": {
+            "type": "string",
+            "minLength": 3
+          }
+        }
+      },
+      "returnSchema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/userRegister"
+          },
+          "error": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
     }
   }
 }
