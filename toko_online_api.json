@@ -1,0 +1,17 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Toko Online API",
+    "version": "1",
+    "description": "Dokumentasi API untuk project Toko Online WebDev",
+    "contact": {
+      "name": "Riski Rahmat Hia",
+      "email": "riskirahmathia3@gmail.com",
+      "url": "wibugames.com"
+    },
+    "license": {
+      "name": "APACHE 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    }
+  }
+}
